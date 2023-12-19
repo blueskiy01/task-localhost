@@ -18,8 +18,8 @@ use crate::stream::errors::{ERROR_200_OK, ERROR_500_INTERNAL_SERVER_ERROR};
 /// To decrease dependencies and avoid any extra activities.
 pub async fn generate_uploads_html(absolute_path: &PathBuf) -> (String, String) {
   let mut html = String::new();
-  html.push_str("<h1>Uploads</h1>");
-  html.push_str("<ul>");
+  html.push_str("<h1 class=\"uploads-title\">Uploads</h1>");
+  html.push_str("<ul class=\"uploads-list\">");
   
   let mut entries = match fs::read_dir(absolute_path).await {
     Ok(v) => v,
@@ -76,9 +76,9 @@ pub async fn generate_uploads_html(absolute_path: &PathBuf) -> (String, String) 
   html.push_str("\n</ul>");
   
   let form = r#"
-  <form method="POST" action="/uploads" id="uploadForm" enctype="multipart/form-data">
-  <input type="file" name="file" id="fileInput">
-  <input type="submit" value="Upload">
+ <form method="POST" action="/uploads" id="uploadForm" enctype="multipart/form-data">
+    <input type="file" name="file" id="fileInput">
+    <input type="submit" value="Upload">
   </form>
   "#;
   
